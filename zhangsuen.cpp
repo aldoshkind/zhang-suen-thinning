@@ -79,7 +79,7 @@ void delete_pixels(cv::Mat& image, std::set<Point>& points)
 void remove_staircases(cv::Mat& image)
 {
     std::set<Point> points;
-    for (int i = 0; i < 2; i++)
+    for (int ii = 0; ii < 2; ii++)
     {
         for (int i = 1; i < image.rows - 1; i++)
         {
@@ -96,7 +96,7 @@ void remove_staircases(cv::Mat& image)
                     s = image.at<uchar_t>(i + 1, j),
                     se = image.at<uchar_t>(i + 1, j + 1);
 
-                if (i == 0)
+                if (ii == 0)
                 {
                     // North biased staircase removal
                     if (!(c && !(n && 
@@ -132,8 +132,9 @@ void thin(cv::Mat& img, bool need_boundary_smoothing=false,
     {
         uchar_t *iter = img.ptr<uchar_t>(i);
         for (int j = 0; j < img.cols; j++, iter++)
-            *iter = (uchar_t)(*iter != 0);
+            *iter = (uchar_t)(*iter < 128) ? 1 : 0;
     }
+    
     // If our input image is M x N, create a M + 2 x N + 2 image that is
     // essentially the same image, bordered by 1(white) pixels.
     cv::Mat image = cv::Mat::ones(img.rows + 2, img.cols + 2, CV_8U);
