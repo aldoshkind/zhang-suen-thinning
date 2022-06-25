@@ -183,7 +183,7 @@ void thin(cv::Mat& img, bool need_boundary_smoothing=false,
         ++src_iter;
         for (int j = 0; j < img.cols; j++)
         {
-            *dst_iter++ = (*src_iter++ > 0) ? 0 : 255;
+            *dst_iter++ = (!(*src_iter++ > 0)) ? 0 : 255;
         }
     }
 }
