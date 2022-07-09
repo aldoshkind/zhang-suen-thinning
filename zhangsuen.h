@@ -27,8 +27,8 @@ void remove_staircases(cv::Mat& image);
 
 void zhangsuen_thin(cv::Mat& img);
 
-void thin(cv::Mat& img, bool need_boundary_smoothing, 
-          bool need_acute_angle_emphasis, bool destair);
+void thin(cv::Mat& img, int thresh = 1, bool need_boundary_smoothing=false,
+          bool need_acute_angle_emphasis=false, bool destair=false);
 
 void boundary_smooth(cv::Mat& image);
 

@@ -123,8 +123,8 @@ void remove_staircases(cv::Mat& image)
     }
 }
 //-------------------------------------------------------------------------
-void thin(cv::Mat& img, bool need_boundary_smoothing=false,
-          bool need_acute_angle_emphasis=false, bool destair=false)
+void thin(cv::Mat& img, int thresh, bool need_boundary_smoothing,
+          bool need_acute_angle_emphasis, bool destair)
 {
     // Make everything either 0 or 1. Though we expect a bilevel image, 
     // the high level (white) can also be 255 rather than 1.
@@ -132,7 +132,7 @@ void thin(cv::Mat& img, bool need_boundary_smoothing=false,
     {
         uchar_t *iter = img.ptr<uchar_t>(i);
         for (int j = 0; j < img.cols; j++, iter++)
-            *iter = (uchar_t)(*iter < 128) ? 1 : 0;
+            *iter = (uchar_t)(*iter < thresh) ? 1 : 0;
     }
     
     // If our input image is M x N, create a M + 2 x N + 2 image that is
